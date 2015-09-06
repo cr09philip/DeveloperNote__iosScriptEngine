@@ -14,4 +14,5 @@ only text, no code in this project.
 ##5.native implementation
 ##6.lua source and how communication between lua and c
 ##7.error handle
+##8.notification observer
 

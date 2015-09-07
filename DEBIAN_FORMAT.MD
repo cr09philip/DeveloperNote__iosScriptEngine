@@ -22,10 +22,10 @@ Debian 软件包不仅仅只是一些待安装的文件的存档，它是一个�
 
 ###Debian二进制软件包的命名格式：
 Debian 二进制软件包的命名格式:
-	 <软件包名>_<版本号>-<Debian修订号>.deb 
+	`` <软件包名>_<版本号>-<Debian修订号>.deb`` 
 
 NOTE:在iOS越狱开发过程中，发布的deb包名通常如下：
-	<软件包名>_<版本号>_<平台名>.deb
+	``<软件包名>_<版本号>_<平台名>.deb``
 
 ###1.control文件
 - Package: 包名
@@ -46,6 +46,25 @@ NOTE:在iOS越狱开发过程中，发布的deb包名通常如下：
 - Depiction: 描述信息。
 - Icon:  在cydia中显示的图标。
 
+###2.控制脚本
+在软件安装前后自动运行的可执行脚本，统称为控制文件，是Debian软件包的控制部分。
+
+- preinst    Debian软件包(".deb")解压前执行的脚本, 为正在被升级的包停止相关服务,直到升级或安装完成.(成功后执行 'postinst' 脚本).
+- postinst   主要完成软件包(".deb")安装完成后所需的配置工作. 通常, postinst 脚本要求用户输入, 和/或警告用户如果接受默认值, 应该记得按要求返回重新配置这个软件. 一个软件包安装或升级完成后, postinst 脚本驱动命令, 启动或重起相应的服务.
+
+- prerm      停止一个软件包的相关进程, 要卸载软件包的相关文件前执行.
+- postrm     修改相关文件或连接, 和/或卸载软件包所创建的文件.
+
+当前的所有配置文件都可在 /var/lib/dpkg/info 目录下找到, 与 foo 软件包相关的命名以 "foo" 开头,以 "preinst", "postinst", 等为扩展.这个目录下的 foo.list 文件列出了软件包安装的所有文件.
+
+###3.校验，配置文件列表
+control.tar.gz包含一些其他东西。
+
+- md5sums 包含这个包所有文件的md5校验值。
+- conffiles 列举了必须作为配置文件保留的文件。
+
+###4.依赖关系
+
  这里有一篇关于软件包关系的简述：
 
     Depends
@@ -54,15 +73,16 @@ NOTE:在iOS越狱开发过程中，发布的deb包名通常如下：
 
     Recommends
 
-    这项中的软件包不是严格意义上必须安装才可以保证程序运行。当用户安装软件包时，所有前端工具都会询问是否要安装这些推荐的软件包。aptitude 和 apt-get 会在安装你的软件包的时候自动安装推荐的软件包(用户可以禁用这个默认行为)。dpkg 则会忽略此项。
+    这项中的软件包不是严格意义上必须安装才可以保证程序运行。当用户安装软件包时，所有前端工具都会询问是否要安装这些推荐的软件包。aptitude 和 apt-get 会在安装你的软件包的时候自动
+安装推荐的软件包(用户可以禁用这个默认行为)。dpkg 则会忽略此项。
 
     Suggests
 
-    此项中的软件包可以和本程序更好地协同工作，但不是必须的。当用户安装程序时，所有的前端程序可能不会询问是否安装建议的软件包。aptitude 可以被配置为安装软件时自动安装建议的软件包，但这不是默认。dpkg 和 apt-get 将忽略此项。
+    此项中的软件包可以和本程序更好地协同工作，但不是必须的。当用户安装程序时，所有的前端程序可能不会询问是否安装建议的软件包。aptitude 可以被配置为安装软件时自动安装建议的软件>包，但这不是默认。dpkg 和 apt-get 将忽略此项。
 
     Pre-Depends
 
-    此项中的依赖强于 Depends 项。软件包仅在预依赖的软件包已经安装并且 正确配置 后才可以正常安装。在使用此项时应 非常慎重，仅当在 debian-devel@lists.debian.org 邮件列表讨论后才能使用。记住：根本就不要用这项。 :-)
+    此项中的依赖强于 Depends 项。软件包仅在预依赖的软件包已经安装并且 正确配置 后才可以正常安装。在使用此项时应 非常慎重，仅当在 debian-devel@lists.debian.org 邮件列表讨论后才>能使用。记住：根本就不要用这项。 :-)
 
     Conflicts
 
@@ -96,26 +116,8 @@ NOTE:在iOS越狱开发过程中，发布的deb包名通常如下：
     软件包 A provides 软件包 B, 指 A 会提供 B 所有的功能和文件, 这种机制为那些磁盘空间受限用户提供了一个方法, 即只安装 A 中需要的部分.
 
 
-###2.控制脚本
-在软件安装前后自动运行的可执行脚本，统称为控制文件，是Debian软件包的控制部分。
-
-- preinst    Debian软件包(".deb")解压前执行的脚本, 为正在被升级的包停止相关服务,直到升级或安装完成.(成功后执行 'postinst' 脚本).
-- postinst   主要完成软件包(".deb")安装完成后所需的配置工作. 通常, postinst 脚本要求用户输入, 和/或警告用户如果接受默认值, 应该记得按要求返回重新配置这个软件. 一个软件包安装或升级完成后, postinst 脚本驱动命令, 启动或重起相应的服务.
-
-- prerm      停止一个软件包的相关进程, 要卸载软件包的相关文件前执行.
-- postrm     修改相关文件或连接, 和/或卸载软件包所创建的文件.
-
-当前的所有配置文件都可在 /var/lib/dpkg/info 目录下找到, 与 foo 软件包相关的命名以 "foo" 开头,以 "preinst", "postinst", 等为扩展.这个目录下的 foo.list 文件列出了软件包安装的所有文件.
-
-###3.校验，配置文件列表
-control.tar.gz包含一些其他东西。
-
-- md5sums 包含这个包所有文件的md5校验值。
-- conffiles 列举了必须作为配置文件保留的文件。
-
-
-
 
 ##参考资料
 1.[https://www.debian.org/doc/manuals/maint-guide/dreq.zh-cn.html#control](https://www.debian.org/doc/manuals/maint-guide/dreq.zh-cn.html#control)
+
 2.[https://www.debian.org/doc/manuals/debian-faq/ch-pkg_basics.zh-cn.html](https://www.debian.org/doc/manuals/debian-faq/ch-pkg_basics.zh-cn.html)

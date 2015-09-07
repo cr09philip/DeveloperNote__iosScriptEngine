@@ -15,4 +15,8 @@ only text, no code in this project.
 ##6.lua source and how communication between lua and c
 ##7.error handle
 ##8.notification observer
-
+##9.how to make an debian package. and shell cmd awk/sed/touch etc.
+   [debian package](./debian.md)
+   regux
+   awk/sed
+   python

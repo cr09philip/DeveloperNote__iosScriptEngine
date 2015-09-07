@@ -16,7 +16,7 @@ only text, no code in this project.
 ##7.error handle
 ##8.notification observer
 ##9.how to make an debian package. and shell cmd awk/sed/touch etc.
-   [debian package](./debian.md)
+   [debian package](./DEBIAN_FORMAT.MD)
    regux
    awk/sed
    python

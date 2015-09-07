@@ -2,12 +2,12 @@
 
 ##二进制包结构
     dpkg 是处理 .deb 文件的命令，尤其是解压、分析和解包它们。 
-    ar 
+    ar   可以用来创建、修改库，也可以从库中提出单个模块。
     apt 
 Debian 包的 ar 存档格式由三个文件组成： 
-**debian-binary
-**control.tar.gz
-**data.tar.gz
+*debian-binary 是一个文本文件，简单的标识deb文件使用的deb版本。
+*control.tar.gz 包含所有有效的元信息，即DEBIAN文件夹下的文件。这些文件可以标识包的名称版本等。
+*data.tar.gz 这个存档文件包含所有要被从软件包里解压缩出来的文件；这是可执行文件、文档等存储的地方。有些软件包可能会使用其它压缩格式(-Z)，那样的话文件名会有所不同（bzip2 是 data.tar.bz2，XZ 是 data.tar.xz for XZ，LZMA 是 data.tar.lzma）。 
 
 
 ##DEBIAN包元信息

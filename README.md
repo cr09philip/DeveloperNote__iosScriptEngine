@@ -15,8 +15,26 @@ only text, no code in this project.
 ##6.lua source and how communication between lua and c
 ##7.error handle
 ##8.notification observer
-##9.how to make an debian package. and shell cmd awk/sed/touch etc.
-   [debian package](./DEBIAN_FORMAT.MD)
-   regux
-   awk/sed
-   python
+
+
+## 9.  
+dpkg-debdeb [DEBIAN](./DEBIAN_FORMAT.MD)  
+
+-   
+``` sh
+chown -R root:wheel ./dir/*  
+chmod -R +x ./dir/files  
+chmod u+s ./dir/file  
+```
+chown   
+chown +x   
+chown u+x [ID](./unix_file_mode.md)
+
+- dpkg-deb 
+``` sh
+dpkg-deb -Zgzip -b path dest.deb
+```
+sshiOSdpkgdeb
+``` sh
+dpkg -i dest.deb
+```

@@ -16,25 +16,24 @@ only text, no code in this project.
 ##7.error handle
 ##8.notification observer
 
+## 9.工程打包  
+使用dpkg-deb命令，将编译后的文件打包成deb。 [DEBIAN包管理系统](./DEBIAN_FORMAT.MD)  
 
-## 9.  
-dpkg-debdeb [DEBIAN](./DEBIAN_FORMAT.MD)  
-
--   
+- 需要注意的是，打包前需要先设置好文件的权限及所有者。  
 ``` sh
 chown -R root:wheel ./dir/*  
 chmod -R +x ./dir/files  
 chmod u+s ./dir/file  
 ```
-chown   
-chown +x   
-chown u+x [ID](./unix_file_mode.md)
+chown 是用来更改文件的所有者和所属组。  
+chown +x 是用来为可执行文件设置属性。  
+chown u+x 是用来为文件添加[设置用户ID属性](./unix_file_mode.md)。
 
-- dpkg-deb 
+- 然后，使用dpkg-deb 打包
 ``` sh
 dpkg-deb -Zgzip -b path dest.deb
 ```
-sshiOSdpkgdeb
+可以通过ssh连接iOS，使用dpkg命令安装deb包。
 ``` sh
 dpkg -i dest.deb
 ```
